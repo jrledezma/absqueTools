@@ -81,7 +81,7 @@ function homeCtrl($rootScope, $uibModal) {
 				status: true
 			}
 		];
-
+		//absque grid configuration.
 		vm.gridConfiguration  = {
 			arrayOfValues: vm.stockList,
 			itemsPerPage: 5,

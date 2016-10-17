@@ -9,14 +9,14 @@
 	</div>
 
 	<div class="modal-body">		
-		<form role="form" name="stockForm" novalidate ng-submit="connectionTest()" style="margin-bottom:20px;">
+		<form role="form" name="stockForm" novalidate ng-submit="vm.modify()" style="margin-bottom:20px;">
 			<fieldset class="row">
 				<div class="col-sm-12">
 					<div class="row">	
 		        <!-- stock unit -->
 						<div class="col-sm-6">
 							<div class="form-group">
-		          	<label for="stockUnit">Stock Unit</label>
+		          	<label for="stockUnit">Stock Unit (absque masked input)</label>
 		          	<absque-masked-input idValue="sku" ng-model="vm.stock.sku" placeholder="Enter Stock Unit" 
 		          		maskValue="{{'###-9#9-999'}}" isRequired="true"></absque-masked-input>
 								<div class="m-t-xs" ng-show="stockForm.connectionName.$invalid">
