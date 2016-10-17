@@ -1,0 +1,19 @@
+{
+	"version": "0.0.1",
+	"author": "absquesoft",
+	"language": "eng",
+	"dbConnectionTypes": [
+		{
+			"code": "mysql",
+			"label": "mySQL"
+		},
+		{
+			"code": "sql",
+			"label": "SQL Server"
+		},
+		{
+			"code": "oracle",
+			"label": "Oracle"
+		}
+	]
+}

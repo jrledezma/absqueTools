@@ -1,0 +1,60 @@
+.example-header {
+	margin-bottom: 0;
+	background-color: #8999A5;
+	border-color: #7790A3;
+	border-style: solid;
+	border-width: 1px;
+	min-height: 50px;
+}
+
+.brand-image-desktop {
+	display: block;
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-left:25px;
+	vertical-align:middle;
+	width:200px;
+}
+
+.brand-image-mobile {
+	display: none;
+}
+
+.uppercase-input{
+  text-transform: uppercase;
+}
+
+.lowercase-input{
+  text-transform: lowercase;
+}
+
+.grid-header {
+	background-color: #BED3E2;
+	border-color: #2f4050;
+	border-style: solid;
+	border-width: 1px;
+	width: 100%;
+}
+
+.grid-header th {
+	border-color: #2f4050;
+	border-style: solid;
+	border-width: 1px;
+	color: #2f4050;		
+}
+
+@media(max-width: 768px){
+
+	.brand-image-desktop {
+		display: none;
+	}
+
+	.brand-image-mobile {
+		display: block;
+		margin-top:10px;
+		margin-bottom:10px;
+		margin-left:20px;
+		vertical-align:middle;
+		width:80px;
+	}	
+}

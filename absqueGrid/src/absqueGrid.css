@@ -1,0 +1,167 @@
+.grid-container {
+  padding-top: 7pt;
+  padding-bottom: 5pt;
+}
+
+.grid {
+  vertical-align: middle;
+  width: 100%;
+  margin-top: 10pt;
+}
+
+.grid thead tr th {
+  border-color: #C5C6C8;
+  font-weight: bold;
+  padding: 4pt 6pt 3pt 6pt;
+  text-align: center;
+  margin-top: 30pt;
+  vertical-align: middle;
+}
+
+.grid thead tr th a{
+  text-decoration: none;
+  color: #000000;
+}
+
+.grid thead tr th a:hover{
+  text-decoration: none;
+  color: #000000;
+}
+
+.grid thead tr th a:visited{
+  text-decoration: none;
+  color: #000000;
+}
+
+.grid tbody tr td {
+  border-color: #C5C6C8;
+  border-top-width: 1pt;
+  border-bottom-style: solid;
+  border-bottom-width: 1pt;
+  padding: 3pt 6pt 2pt 6pt;
+  vertical-align: middle;
+}
+
+.grid tbody tr td ul li a{
+  text-decoration: none;
+}
+
+.grid tbody tr td ul li a:hover{
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.grid tbody tr td img {
+  border-style: solid;
+  border-width: 1pt;
+  border-color: #ECECEC;
+  height: 62pt;
+  width: 62pt;
+  border-radius: 50%;
+  margin: 5pt;
+}
+
+.grid tbody tr td img:hover {
+  opacity: 0.8;
+}
+
+.grid tbody tr:hover {
+  background-color: #E7E7E8;
+  /*cursor: pointer;*/
+}
+
+.desktop-button {
+  font-size: 12px;
+}
+
+.search-input{
+  font-family: "FontAwesome";
+  content: "\f066";
+}
+
+.pagination {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 25px;
+
+}
+
+/****************************************
+  * mobile devices
+****************************************/
+
+@media (max-width: 767px){
+
+  .grid tbody tr td {
+    padding: 3pt 3pt 2pt 3pt;
+    font-size: 12px;
+  }
+
+  .not-show-in-mobile {
+    display: none;
+  }
+
+  .gbutton-group-padding {
+    padding: 3pt 2pt 2pt 2pt;
+    font-size: 13px;
+  }
+    
+  .grid tbody tr:last-child td {
+    border-bottom-style: none;
+  }
+
+  .mobile-margin{
+    margin-bottom: 15px; 
+  }
+
+  .desktop-button {
+    font-size: 0;
+  }
+
+  .pagination {  
+    padding-left: 0;
+    margin-right: 20px;
+  }
+
+  .pagination>li:first-child>a, 
+  .pagination>li:first-child>span,
+  .pagination>li:last-child>a, 
+  .pagination>li:last-child>span {
+    border-radius: 0;
+  }
+
+  
+  .table-responsive {
+    border-radius: 3px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}
+
+@media (max-width: 700px){
+  .pagination {    
+    padding-left: 0;
+    padding-right: 0;
+    /*width: 93%;*/
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 560px){
+  .pagination {    
+    padding-left: 0;
+    padding-right: 15px;
+    margin-right: 0;
+    max-width: 96%;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px){
+  
+  .pagination {    
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

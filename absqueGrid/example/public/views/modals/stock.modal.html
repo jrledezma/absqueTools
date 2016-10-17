@@ -1,0 +1,86 @@
+<div >
+	<div class="modal-header">
+
+		<h3 style="color=#394d60">
+			<i class="fa fa-edit"></i>
+			&nbsp;
+			Modify Stock
+		</h3>
+	</div>
+
+	<div class="modal-body">		
+		<form role="form" name="stockForm" novalidate ng-submit="connectionTest()" style="margin-bottom:20px;">
+			<fieldset class="row">
+				<div class="col-sm-12">
+					<div class="row">	
+		        <!-- stock unit -->
+						<div class="col-sm-6">
+							<div class="form-group">
+		          	<label for="stockUnit">Stock Unit</label>
+		          	<absque-masked-input idValue="sku" ng-model="vm.stock.sku" placeholder="Enter Stock Unit" 
+		          		maskValue="{{'###-9#9-999'}}" isRequired="true"></absque-masked-input>
+								<div class="m-t-xs" ng-show="stockForm.connectionName.$invalid">
+									<small class="text-danger" ng-show="stockForm.stockUnit.$error.required">The Stock Unit is required.</small>
+								</div>
+		        	</div>
+		        </div>
+		        <!-- name -->
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="name">Name</label>
+								<input type="text" placeholder="Enter Name" class="form-control" name="name" ng-model="vm.stock.name" maxlength="50" required>
+								<div class="m-t-xs" ng-show="stockForm.name.$invalid">
+										<small class="text-danger" ng-show="stockForm.name.$error.required">The Name is required</small>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- host -->					
+					<div class="row">	
+						<div class="col-sm-6">
+		          <div class="form-group">
+		          	<label for="price">Price</label>
+								<input type="number" placeholder="Enter Price" class="form-control" name="price" ng-model="vm.stock.price" min="0.1" required>
+								<div class="m-t-xs" ng-show="stockForm.price.$invalid">
+										<small class="text-danger" ng-show="stockForm.price.$error.required">The Price is required</small>
+								</div>
+		          </div>
+		        </div>
+		        <!-- port -->
+						<div class="col-sm-6 small-number-input">
+							<div class="form-group">
+								<label for="details">Details</label>
+								<input type="text" placeholder="Enter Details" class="form-control" name="details" ng-model="vm.stock.details" min="0">
+							</div>
+						</div>
+		      </div>
+		      <div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+			        	<label>
+			        		<input icheck type="checkbox" ng-model="vm.stock.inStock">
+			        		&nbsp;
+		        			In Stock
+		        		</label>
+		        	</div>
+		        </div>	
+						<div class="col-sm-6">
+							<div class="form-group">
+			        	<label>
+			        		<input icheck type="checkbox" ng-model="vm.stock.status">
+			        		&nbsp;
+		        			Is Active
+		        		</label>
+		        	</div>
+						</div>
+					</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-outline btn-info" ng-disabled="stockForm.$invalid" ng-click="vm.modify()">Modify Stock</button>
+		&nbsp;
+		<button type="button" class="btn btn-outline btn-warning" ng-click="vm.cancel()">Cancel</button>
+	</div>
+</div>
