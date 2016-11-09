@@ -66,7 +66,7 @@ angular.module('absqueTools', ['ng'])
           * Table Creation
         **************************************************/
         function createHeader(){
-          var headerTemplate = '<thead id="head"><tr class="' + createClassesString(scope.config.headerClasses) + '">',
+          var headerTemplate = '<thead id="head" class="' + createClassesString(scope.config.headerClasses) + '"><tr>',
               columnHeaders = scope.config.fieldsToUse;
           for(var i in columnHeaders){
             var mobileShowClass = '';
@@ -163,7 +163,7 @@ angular.module('absqueTools', ['ng'])
               case 'custom':
                 buttonControl += '<li style="margin-bottom:2pt;list-style-type:none;width=100%;">';
                 buttonControl += scope.config.buttonList[h].html
-                    .replace(':action','')
+                    .replace(':action', 'ng-click="' + createButtonFunctionality(h, scope.config.buttonList[h]) + '"')
                     .replace(':text', scope.config.buttonList[h].text);
                 break;
               case 'delete':
@@ -200,8 +200,10 @@ angular.module('absqueTools', ['ng'])
           for(var i in button.parameters){
             if(button.parameters[i].isRowItem){
               buttonClick += 'item';
-            } else {
+            } else if(button.parameters[i].isGridValue) {
               buttonClick += 'item.' + button.parameters[i].keyValue;
+            } else {
+              buttonClick += button.parameters[i].customValue;
             }
           }
           buttonClick += ')';

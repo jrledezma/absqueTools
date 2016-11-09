@@ -169,6 +169,15 @@ function homeCtrl($rootScope, $uibModal) {
 						isRowItem: true	
 					}],
 				functionToApply: openDetailsModal
+			}, {
+				type: 'custom',
+				html:  '<a href="" style="display: inline;" :action>' +
+          '<i class="fa fa-code text-info"></i><span class="desktop-button">&nbsp;Custom Action</span></a>',
+				parameters:[
+					{
+						customValue: "'This is a custom action.'",
+					}],
+				functionToApply: customAction
 			}],
 			pagination: {
 				onRightSide: true,
@@ -220,6 +229,10 @@ function homeCtrl($rootScope, $uibModal) {
 				break;
 			}
 		}
+	}
+
+	function customAction(message) {
+		alert(message);
 	}
 
 	function modalCtrl($uibModalInstance, stock) {

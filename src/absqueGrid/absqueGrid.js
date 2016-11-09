@@ -1,3 +1,12 @@
+/************************************************************************
+  * Absque Grid
+  * descripction: angularjs directive for create grid tables by using a 
+  *               a single json object in the view controller
+  * author: Jose Ledezma Cortes
+  * company: absquesoft 
+  * dependencies: bootstrap
+***********************************************************************/
+
 'use strict';
 
 angular.module('absqueTools', ['ng'])
@@ -27,26 +36,6 @@ angular.module('absqueTools', ['ng'])
         '</div>' +
         '</div>',
       link: function(scope, element, attrs) {
-        /*{
-          arrayOfValues:[],
-          fieldsToUse: [
-            {
-              keyName: '',
-              columnTitle: ''
-              isButtonList: false,
-              isImage: true,
-              isUrl: false,
-              urlLink: ''
-            }
-          ],
-          buttonList: [
-            {
-              type: 'Edit'||'Delete'||'Detail'||'custom',
-              text: '',
-              functionToApply: function
-            }
-          ]
-        }*/
         startGrid();
 
         scope.$watch(function(){
@@ -77,7 +66,7 @@ angular.module('absqueTools', ['ng'])
           * Table Creation
         **************************************************/
         function createHeader(){
-          var headerTemplate = '<thead id="head"><tr>',
+          var headerTemplate = '<thead id="head" class="' + createClassesString(scope.config.headerClasses) + '"><tr>',
               columnHeaders = scope.config.fieldsToUse;
           for(var i in columnHeaders){
             var mobileShowClass = '';
@@ -86,7 +75,7 @@ angular.module('absqueTools', ['ng'])
             }
 
             if(columnHeaders[i].show){
-              headerTemplate += '<th class="' + mobileShowClass + '" style="margin-bottom:10pt">';
+              headerTemplate += '<th class="' + mobileShowClass + '" style="margin-bottom:10pt;' + createStylesString(scope.config.rowStyles) + '">';
               //make sorteable columns
               if(columnHeaders[i].useToSort){
                 headerTemplate += '<a href="" ng-click="sortType = \'' + columnHeaders[i].keyName +'\';ascSort = !ascSort">' +
@@ -102,6 +91,9 @@ angular.module('absqueTools', ['ng'])
                headerTemplate += '</th>';
             }
           }
+          if((scope.config.buttonList) && (scope.config.buttonList.length > 0)){
+            headerTemplate += '<th></th>';
+          }
           headerTemplate += '</tr></thead>';
           return headerTemplate;
         }
@@ -110,7 +102,8 @@ angular.module('absqueTools', ['ng'])
           var body = element.find('tbody');
           body.remove();
           var bodyTemplate = '<tbody id="body">' +
-            '<tr ng-repeat="item in pagedItems | orderBy:sortType:ascSort">';
+            '<tr ng-repeat="item in pagedItems | orderBy:sortType:ascSort" class="' + createClassesString(scope.config.rowClasses) + 
+              '" style="' + createStylesString(scope.config.rowStyles) + '">';
             var idKeyName = '';
             for(var i in scope.config.fieldsToUse){
               var field = scope.config.fieldsToUse[i];
@@ -122,41 +115,31 @@ angular.module('absqueTools', ['ng'])
 
                 var mobileShowClass = ''
                 if(!field.showInMobile){
-                  var mobileShowClass = 'not-show-in-mobile';
+                  mobileShowClass = 'not-show-in-mobile';
                 }
 
-                //editable
-                if(typeof field.editOptions === 'object'){
-                  if(field.editOptions.type === 'text'){
-                    bodyTemplate += '<td class="' + mobileShowClass + '">' +
-                    '<absque-grid-item model="item.'+ field.keyName + '" input-type="text" input-max-length="' + field.editOptions.inputMaxLength + '" ' +
-                        'input-classes="' + field.editOptions.inputClasses + '" view-data-classes="' + field.editOptions.viewDataClasses + '"></absque-grid-item>' +
+                //boolean
+                if(field.isBoolean){
+                  bodyTemplate += '<td ng-show="{{item.' + field.keyName +'}}" class="' + mobileShowClass + createClassesString(field.classes) + 
+                    '" style="' + createStylesString(field.styles) + '">' + field.values.whenTrue + '</td>';
+                  bodyTemplate += '<td ng-hide="{{item.' + field.keyName +'}}" class="' + mobileShowClass + createClassesString(field.classes) +
+                    '" style="' + createStylesString(field.styles) + '">' + field.values.whenFalse + '</td>';
+                }
+                //image
+                else if(field.isImage){
+                  bodyTemplate += '<td>' +
+                    '<img src="{{item.'+ field.keyName + '}}" class="' + mobileShowClass + createClassesString(field.classes) + 
+                      '" style="' + createStylesString(field.styles) + '"/>' +
                     '</td>';
-                  } else if(field.editOptions.type === 'checkbox'){
-                    bodyTemplate += '<td class="' + mobileShowClass + '" style="text-align:center;">' +
-                      '<input type="checkbox" ng-model="item.'+ field.keyName + '" ng-true-value="' + field.editOptions.trueValue + '" ' +
-                        'ng-false-value="' + field.editOptions.falseValue + '"/>' +
-                      '</td>';
-                  }
-                } else{
-                  //boolean
-                  if(field.isBoolean){
-                    bodyTemplate += '<td ng-show="{{item.' + field.keyName +'}}" class="' + mobileShowClass + '">' + field.values.whenTrue + '</td>';
-                    bodyTemplate += '<td ng-hide="{{item.' + field.keyName +'}}" class="' + mobileShowClass + '">' + field.values.whenFalse + '</td>';
-                  }
-                  //image
-                  else if(field.isImage){
-                    bodyTemplate += '<td>' +
-                      '<img src="{{item.'+ field.keyName + '}}" class="' + mobileShowClass + '"/>' +
-                      '</td>';
-                  }
-                  //text
-                  else {
-                    if(field.hardCodedValue){
-                      bodyTemplate += '<td class="' + mobileShowClass + '">{{item.' + field.hardCodedValue + '}}</td>';  
-                    } else {
-                      bodyTemplate += '<td class="' + mobileShowClass + '">{{item.' + field.keyName + '}}</td>';
-                    }
+                }
+                //text
+                else {
+                  if(field.hardCodedValue){
+                    bodyTemplate += '<td class="' + mobileShowClass + createClassesString(field.classes) + 
+                      '" style="' + createStylesString(field.styles) + '">{{item.' + field.hardCodedValue + '}}</td>';  
+                  } else {
+                    bodyTemplate += '<td class="' + mobileShowClass + createClassesString(field.classes) + 
+                      '" style="' + createStylesString(field.styles) + '">{{item.' + field.keyName + '}}</td>';
                   }
                 }
               }
@@ -180,7 +163,7 @@ angular.module('absqueTools', ['ng'])
               case 'custom':
                 buttonControl += '<li style="margin-bottom:2pt;list-style-type:none;width=100%;">';
                 buttonControl += scope.config.buttonList[h].html
-                    .replace(':action','')
+                    .replace(':action', 'ng-click="' + createButtonFunctionality(h, scope.config.buttonList[h]) + '"')
                     .replace(':text', scope.config.buttonList[h].text);
                 break;
               case 'delete':
@@ -217,12 +200,30 @@ angular.module('absqueTools', ['ng'])
           for(var i in button.parameters){
             if(button.parameters[i].isRowItem){
               buttonClick += 'item';
-            } else {
+            } else if(button.parameters[i].isGridValue) {
               buttonClick += 'item.' + button.parameters[i].keyValue;
+            } else {
+              buttonClick += button.parameters[i].customValue;
             }
           }
           buttonClick += ')';
           return buttonClick;
+        }
+
+        function createClassesString(classes) {
+          var classesStr = ''
+          for(var i in classes){
+            classesStr += classes[i] + ' ';
+          }
+          return classesStr;
+        }
+
+        function createStylesString(styles) {
+          var stylesStr = ''
+          for(var i in styles){
+            stylesStr += styles[i] + ';';
+          }
+          return stylesStr;
         }
 
         /**************************************************
