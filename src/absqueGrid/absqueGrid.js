@@ -207,7 +207,7 @@ angular.module('absqueTools', ['ng'])
             }
           }
           buttonClick += ')';
-          return buttonClick;
+          return buttonClick; 
         }
 
         function createClassesString(classes) {
